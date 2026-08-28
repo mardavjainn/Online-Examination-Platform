@@ -1,0 +1,25 @@
+# Compiled files
+*/target/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Logs
+*/logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker volumes (if any)
+*/data/
+
+# Application properties with secrets (optional)
+# */src/main/resources/application.properties

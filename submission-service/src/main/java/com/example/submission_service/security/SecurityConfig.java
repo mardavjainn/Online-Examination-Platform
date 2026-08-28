@@ -1,4 +1,4 @@
-package com.example.exam_service.security;
+package com.example.submission_service.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .cors(cors -> {
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/exams/**", "/questions/**", "/options/**", "/api/**").authenticated()
+                        .requestMatchers("/submissions/**", "/api/**").authenticated()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/exams")
+@RequestMapping({"/api/exams", "/exams"})
 public class ExamController {
 
     private final ExamService examService;
@@ -55,7 +55,7 @@ public class ExamController {
     @PutMapping("/{examId}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<ExamResponseDTO> updateExam(@PathVariable Long examId,
-                                                    @Valid @RequestBody ExamUpdateRequest request) {
+            @Valid @RequestBody ExamUpdateRequest request) {
         return ResponseEntity.ok(examService.updateExam(examId, request));
     }
 

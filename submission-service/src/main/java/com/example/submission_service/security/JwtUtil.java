@@ -1,4 +1,4 @@
-package com.example.exam_service.security;
+package com.example.submission_service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -56,4 +56,3 @@ public class JwtUtil {
                 .getBody();
     }
 }
-

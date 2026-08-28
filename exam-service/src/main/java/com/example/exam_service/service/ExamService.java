@@ -114,8 +114,7 @@ public class ExamService {
         }
 
         List<Question> questions = questionRepository.findByExamIdAndIsDeletedFalse(exam.getId());
-        exam.setQuestions(questions);
-        examValidationService.validateExamBeforePublish(exam);
+        examValidationService.validateExamBeforePublish(exam, questions);
         exam.setIsPublished(true);
         exam.setUpdatedAt(LocalDateTime.now());
         examRepository.save(exam);

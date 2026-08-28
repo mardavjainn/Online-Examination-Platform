@@ -65,6 +65,17 @@ public class Exam {
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
 
+    public void setQuestions(List<Question> questions) {
+        if (this.questions == null) {
+            this.questions = new ArrayList<>();
+        } else {
+            this.questions.clear();
+        }
+        if (questions != null) {
+            this.questions.addAll(questions);
+        }
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

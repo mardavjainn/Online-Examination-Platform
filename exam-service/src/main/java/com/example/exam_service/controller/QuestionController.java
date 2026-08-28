@@ -21,40 +21,40 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @PostMapping("/exams/{examId}/questions")
+    @PostMapping({"/exams/{examId}/questions", "/api/exams/{examId}/questions", "/api/questions/exam/{examId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<QuestionResponseDTO> addQuestion(@PathVariable Long examId,
-                                                          @Valid @RequestBody QuestionRequestDTO request) {
+            @Valid @RequestBody QuestionRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(questionService.addQuestion(examId, request));
     }
 
-    @GetMapping("/exams/{examId}/questions")
+    @GetMapping({"/exams/{examId}/questions", "/api/questions/exam/{examId}", "/api/exams/{examId}/questions"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<QuestionResponseDTO>> getQuestionsByExam(@PathVariable Long examId) {
         return ResponseEntity.ok(questionService.getQuestionsByExam(examId));
     }
 
-    @GetMapping("/questions/{questionId}")
+    @GetMapping({"/questions/{questionId}", "/api/questions/{questionId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<QuestionResponseDTO> getQuestionById(@PathVariable Long questionId) {
         return ResponseEntity.ok(questionService.getQuestionById(questionId));
     }
 
-    @PutMapping("/questions/{questionId}")
+    @PutMapping({"/questions/{questionId}", "/api/questions/{questionId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<QuestionResponseDTO> updateQuestion(@PathVariable Long questionId,
-                                                            @Valid @RequestBody QuestionUpdateRequest request) {
+            @Valid @RequestBody QuestionUpdateRequest request) {
         return ResponseEntity.ok(questionService.updateQuestion(questionId, request));
     }
 
-    @DeleteMapping("/questions/{questionId}")
+    @DeleteMapping({"/questions/{questionId}", "/api/questions/{questionId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId) {
         questionService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/questions/search")
+    @GetMapping({"/questions/search", "/api/questions/search"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<QuestionResponseDTO>> searchQuestions(@RequestParam(required = false) String keyword) {
         return ResponseEntity.ok(questionService.searchQuestions(keyword));

@@ -21,27 +21,27 @@ public class OptionController {
         this.optionService = optionService;
     }
 
-    @PostMapping("/questions/{questionId}/options")
+    @PostMapping({"/questions/{questionId}/options", "/api/questions/{questionId}/options"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<OptionResponseDTO> addOption(@PathVariable Long questionId,
-                                                     @Valid @RequestBody OptionRequestDTO request) {
+            @Valid @RequestBody OptionRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(optionService.addOption(questionId, request));
     }
 
-    @GetMapping("/questions/{questionId}/options")
+    @GetMapping({"/questions/{questionId}/options", "/api/questions/{questionId}/options"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<OptionResponseDTO>> getOptionsByQuestion(@PathVariable Long questionId) {
         return ResponseEntity.ok(optionService.getOptionsByQuestion(questionId));
     }
 
-    @PutMapping("/options/{optionId}")
+    @PutMapping({"/options/{optionId}", "/api/options/{optionId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<OptionResponseDTO> updateOption(@PathVariable Long optionId,
-                                                        @Valid @RequestBody OptionUpdateRequest request) {
+            @Valid @RequestBody OptionUpdateRequest request) {
         return ResponseEntity.ok(optionService.updateOption(optionId, request));
     }
 
-    @DeleteMapping("/options/{optionId}")
+    @DeleteMapping({"/options/{optionId}", "/api/options/{optionId}"})
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> deleteOption(@PathVariable Long optionId) {
         optionService.deleteOption(optionId);

@@ -45,9 +45,11 @@ public class ExamService {
         exam.setStartTime(request.getStartTime());
         exam.setEndTime(request.getEndTime());
         exam.setDuration(request.getDuration());
-        exam.setCreatedBy(request.getCreatedBy());
-        exam.setUpdatedBy(request.getCreatedBy());
-        exam.setIsPublished(false);
+        Long creator = request.getCreatedBy() != null ? request.getCreatedBy() : 1L;
+        exam.setCreatedBy(creator);
+        exam.setUpdatedBy(creator);
+        boolean published = request.getIsPublished() != null ? request.getIsPublished() : true;
+        exam.setIsPublished(published);
         exam.setIsDeleted(false);
         exam.setCreatedAt(LocalDateTime.now());
         exam.setUpdatedAt(LocalDateTime.now());

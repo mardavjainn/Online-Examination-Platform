@@ -3,13 +3,17 @@ package com.example.auth_service.dto;
 public class LoginResponse {
     private String token;
     private String email;
+    private Long userId;
+    private String role;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(String token, String email) {
+    public LoginResponse(String token, String email, Long userId, String role) {
         this.token = token;
         this.email = email;
+        this.userId = userId;
+        this.role = role;
     }
 
     public String getToken() {
@@ -26,5 +30,21 @@ public class LoginResponse {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

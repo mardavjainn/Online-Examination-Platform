@@ -20,7 +20,6 @@ public class ExamRequestDTO {
 
     private String description;
 
-    @NotNull(message = "CreatedBy is required")
     private Long createdBy; // Teacher ID from Auth Service
 
     private String category;
@@ -30,4 +29,12 @@ public class ExamRequestDTO {
     private LocalDateTime endTime;
 
     private Integer duration; // in minutes
+
+    private Integer durationMinutes;
+
+    private Boolean isPublished;
+
+    public Integer getDuration() {
+        return duration != null ? duration : durationMinutes;
+    }
 }

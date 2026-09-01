@@ -46,8 +46,9 @@ public class SubmissionController {
     }
 
     @PostMapping("/submit")
-    public ResponseEntity<SubmitExamResponse> submitExam(@Valid @RequestBody SubmitExamRequest request) {
-        SubmitExamResponse response = submissionService.submitExam(request);
+    public ResponseEntity<SubmitExamResponse> submitExam(@Valid @RequestBody SubmitExamRequest request,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+        SubmitExamResponse response = submissionService.submitExam(request, authHeader);
         return ResponseEntity.ok(response);
     }
 

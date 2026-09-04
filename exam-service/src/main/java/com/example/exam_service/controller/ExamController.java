@@ -23,7 +23,7 @@ public class ExamController {
     }
 
     @PostMapping
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<ExamResponseDTO> createExam(@Valid @RequestBody ExamRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(examService.createExam(request));
     }
@@ -41,7 +41,7 @@ public class ExamController {
     }
 
     @GetMapping("/drafts")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<List<ExamResponseDTO>> getDraftExams() {
         return ResponseEntity.ok(examService.getDraftExams());
     }
@@ -53,28 +53,28 @@ public class ExamController {
     }
 
     @PutMapping("/{examId}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<ExamResponseDTO> updateExam(@PathVariable Long examId,
             @Valid @RequestBody ExamUpdateRequest request) {
         return ResponseEntity.ok(examService.updateExam(examId, request));
     }
 
     @PutMapping("/{examId}/publish")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<Void> publishExam(@PathVariable Long examId) {
         examService.publishExam(examId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{examId}/unpublish")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<Void> unpublishExam(@PathVariable Long examId) {
         examService.unpublishExam(examId);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{examId}")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<Void> deleteExam(@PathVariable Long examId) {
         examService.deleteExam(examId);
         return ResponseEntity.noContent().build();

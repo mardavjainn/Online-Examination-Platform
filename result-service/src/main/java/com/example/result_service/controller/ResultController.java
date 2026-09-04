@@ -46,8 +46,18 @@ public class ResultController {
     @GetMapping("/student/{studentId}")
     @PreAuthorize("hasRole('STUDENT')")
     public ResponseEntity<List<ResultResponse>> getByStudent(@PathVariable Long studentId, Authentication authentication) {
-        if (!(authentication.getPrincipal() instanceof Long authenticatedStudentId)
-                || !authenticatedStudentId.equals(studentId)) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        Long authenticatedStudentId = null;
+        if (authentication.getPrincipal() instanceof Long l) {
+            authenticatedStudentId = l;
+        } else {
+            try {
+                authenticatedStudentId = Long.valueOf(authentication.getPrincipal().toString());
+            } catch (NumberFormatException ignored) {}
+        }
+        if (authenticatedStudentId != null && !authenticatedStudentId.equals(studentId)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.ok(resultService.getByStudentId(studentId));

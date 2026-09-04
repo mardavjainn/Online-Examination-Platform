@@ -170,7 +170,7 @@ export default function StudentExam() {
               {questions.map((q, idx) => (
                 <div key={q.id || idx} className="question-card">
                   <p className="question-text">
-                    <strong>Q{idx + 1}. {q.content || q.text}</strong>
+                    <strong>Q{idx + 1}. {q.questionText || q.content || q.text}</strong>
                   </p>
                   <div className="options-list">
                     {(q.options || []).map((opt) => (

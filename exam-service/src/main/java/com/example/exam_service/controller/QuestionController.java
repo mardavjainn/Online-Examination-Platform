@@ -22,7 +22,7 @@ public class QuestionController {
     }
 
     @PostMapping({"/exams/{examId}/questions", "/api/exams/{examId}/questions", "/api/questions/exam/{examId}"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<QuestionResponseDTO> addQuestion(@PathVariable Long examId,
             @Valid @RequestBody QuestionRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(questionService.addQuestion(examId, request));
@@ -41,14 +41,14 @@ public class QuestionController {
     }
 
     @PutMapping({"/questions/{questionId}", "/api/questions/{questionId}"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<QuestionResponseDTO> updateQuestion(@PathVariable Long questionId,
             @Valid @RequestBody QuestionUpdateRequest request) {
         return ResponseEntity.ok(questionService.updateQuestion(questionId, request));
     }
 
     @DeleteMapping({"/questions/{questionId}", "/api/questions/{questionId}"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long questionId) {
         questionService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();

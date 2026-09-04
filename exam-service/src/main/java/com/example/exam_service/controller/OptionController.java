@@ -22,7 +22,7 @@ public class OptionController {
     }
 
     @PostMapping({"/questions/{questionId}/options", "/api/questions/{questionId}/options"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<OptionResponseDTO> addOption(@PathVariable Long questionId,
             @Valid @RequestBody OptionRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(optionService.addOption(questionId, request));
@@ -35,14 +35,14 @@ public class OptionController {
     }
 
     @PutMapping({"/options/{optionId}", "/api/options/{optionId}"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<OptionResponseDTO> updateOption(@PathVariable Long optionId,
             @Valid @RequestBody OptionUpdateRequest request) {
         return ResponseEntity.ok(optionService.updateOption(optionId, request));
     }
 
     @DeleteMapping({"/options/{optionId}", "/api/options/{optionId}"})
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('TEACHER', 'ADMIN')")
     public ResponseEntity<Void> deleteOption(@PathVariable Long optionId) {
         optionService.deleteOption(optionId);
         return ResponseEntity.noContent().build();

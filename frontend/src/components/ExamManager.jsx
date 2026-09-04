@@ -4,7 +4,7 @@ import { examApi } from '../api/examApi';
 import { useAuth } from '../context/AuthContext';
 
 export default function ExamManager() {
-  const { isAuthenticated, userId } = useAuth();
+  const { isAuthenticated, userId, userRole } = useAuth();
 
   // State for exam list & forms
   const [exams, setExams] = useState([]);
@@ -73,7 +73,11 @@ export default function ExamManager() {
 
     setLoading(true);
     try {
-      const res = await examApi.addQuestion(selectedExamId, { content: questionContent, marks: parseInt(marks, 10) });
+      const res = await examApi.addQuestion(selectedExamId, {
+        questionText: questionContent,
+        content: questionContent,
+        marks: parseInt(marks, 10)
+      });
       setStatus({ type: 'success', message: `Question added successfully! Question ID: ${res.id}` });
       setSelectedQuestionId(res.id.toString());
     } catch (err) {
@@ -119,13 +123,20 @@ export default function ExamManager() {
       </div>
 
       <p className="card-description">
-        Manage exam templates, configure questions, and set options. (Requires JWT Authentication)
+        Manage exam templates, configure questions, and set options. (Requires TEACHER or ADMIN role JWT)
       </p>
 
       {!isAuthenticated && (
         <div className="alert-box alert-warning">
           <AlertCircle size={18} />
           <span>Please log in via the Auth tab first to create or manage exams.</span>
+        </div>
+      )}
+
+      {isAuthenticated && userRole === 'STUDENT' && (
+        <div className="alert-box alert-warning">
+          <AlertCircle size={18} />
+          <span>You are logged in as a STUDENT. Creating or modifying exams requires a TEACHER or ADMIN account.</span>
         </div>
       )}
 
